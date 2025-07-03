@@ -1,1 +1,418 @@
-
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1e5799, #207cca);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Estilos do cabeçalho */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo i {
+            font-size: 2.5rem;
+            color: #1e5799;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            color: #207cca;
+        }
+        
+        /* Navegação */
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 8px 15px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        nav a:hover {
+            background-color: #e3f2fd;
+            color: #1e5799;
+        }
+        
+        nav a.active {
+            background-color: #1e5799;
+            color: white;
+        }
+        
+        /* Conteúdo principal */
+        main {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            margin-bottom: 30px;
+            min-height: 70vh;
+        }
+        
+        .page {
+            padding: 40px;
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Estilos da página do estudante */
+        .student-header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #1e5799;
+        }
+        
+        .student-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .student-header p {
+            font-size: 1.2rem;
+            color: #207cca;
+        }
+        
+        .student-profile {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 50px;
+            align-items: center;
+        }
+        
+        .student-photo {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .student-photo img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border: 5px solid #e3f2fd;
+        }
+        
+        .student-info {
+            flex: 2;
+        }
+        
+        .student-info h3 {
+            color: #1e5799;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            border-bottom: 2px solid #207cca;
+            padding-bottom: 10px;
+        }
+        
+        .student-info p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .skills-container {
+            margin-top: 30px;
+        }
+        
+        .skill {
+            margin-bottom: 15px;
+        }
+        
+        .skill-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #1e5799;
+        }
+        
+        .skill-bar {
+            height: 20px;
+            background-color: #e3f2fd;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .skill-level {
+            height: 100%;
+            background: linear-gradient(90deg, #1e5799, #207cca);
+            border-radius: 10px;
+            text-align: right;
+            padding-right: 10px;
+            color: white;
+            font-size: 0.8rem;
+            line-height: 20px;
+        }
+        
+        .projects {
+            margin-top: 50px;
+        }
+        
+        .projects h3 {
+            color: #1e5799;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            border-bottom: 2px solid #207cca;
+            padding-bottom: 10px;
+        }
+        
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .project-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .project-img {
+            height: 180px;
+            overflow: hidden;
+        }
+        
+        .project-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .project-card:hover .project-img img {
+            transform: scale(1.1);
+        }
+        
+        .project-info {
+            padding: 20px;
+        }
+        
+        .project-info h4 {
+            color: #1e5799;
+            margin-bottom: 10px;
+        }
+        
+        /* Estilos da página do arraial */
+        .arraial-header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #c62828;
+        }
+        
+        .arraial-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .arraial-header p {
+            font-size: 1.2rem;
+            color: #e53935;
+        }
+        
+        .event-info {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .event-details {
+            flex: 1;
+        }
+        
+        .event-details h3 {
+            color: #c62828;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            border-bottom: 2px solid #e53935;
+            padding-bottom: 10px;
+        }
+        
+        .event-details p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .info-item i {
+            color: #e53935;
+            font-size: 1.2rem;
+        }
+        
+        .event-photo {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .event-photo img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border: 5px solid #ffebee;
+        }
+        
+        .atracoes {
+            margin-top: 50px;
+        }
+        
+        .atracoes h3 {
+            color: #c62828;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            border-bottom: 2px solid #e53935;
+            padding-bottom: 10px;
+        }
+        
+        .atracoes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .atracao-card {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .atracao-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .atracao-icon {
+            background: #ffebee;
+            padding: 20px;
+            font-size: 3rem;
+            color: #c62828;
+        }
+        
+        .atracao-info {
+            padding: 20px;
+        }
+        
+        .atracao-info h4 {
+            color: #c62828;
+            margin-bottom: 10px;
+        }
+        
+        /* Rodapé */
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px 20px 0 0;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+            color: #1e5799;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-5px);
+            color: #207cca;
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .student-profile, .event-info {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
