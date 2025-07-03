@@ -1,11 +1,13 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prova Surpresa</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    </head>
+</head>
 <body>
     <header>
         <div class="header-content">
@@ -111,29 +113,36 @@
                 
                 <div class="event-info">
                     <div class="event-details">
-                        <h3>Festa Junina</h3>
-                        <p>Nossa 20º festa junina está de volta! Este ano teremos uma programação especial com muitas atrações, comidas típicas e atividades para toda a comunidade escolar.</p>
+                        <h3>Festa Junina 2023</h3>
+                        <p>Nossa tradicional festa junina está de volta! Este ano teremos uma programação especial com muitas atrações, comidas típicas e atividades para toda a comunidade escolar.</p>
                         
                         <div class="info-item">
                             <i class="fas fa-calendar-alt"></i>
-                            <span>Data:8 de julho de 2025</span>
+                            <span>Data: 24 de Junho de 2023</span>
                         </div>
                         
                         <div class="info-item">
                             <i class="fas fa-clock"></i>
-                            <span>Horário: 18h às 22h</span>
+                            <span>Horário: 14h às 22h</span>
                         </div>
                         
                         <div class="info-item">
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>Local: Quadra da Escola</span>
+                            <span>Local: Quadra Poliesportiva da Escola</span>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i class="fas fa-ticket-alt"></i>
+                            <span>Entrada: 1kg de alimento não perecível</span>
                         </div>
                         
                         <p>A festa contará com:</p>
                         <ul>
                             <li>Barracas de comidas típicas</li>
                             <li>Apresentações de quadrilha</li>
+                            <li>Show de forró ao vivo</li>
                             <li>Jogos e brincadeiras</li>
+                            <li>Arraial beneficente</li>
                         </ul>
                     </div>
                     
@@ -149,13 +158,19 @@
                             <div class="atracao-icon">
                                 <i class="fas fa-music"></i>
                             </div>
+                            <div class="atracao-info">
+                                <h4>Forró Pé de Serra</h4>
+                                <p>Show com a banda "Os Xotezeiros" a partir das 18h</p>
+                            </div>
+                        </div>
+                        
                         <div class="atracao-card">
                             <div class="atracao-icon">
                                 <i class="fas fa-utensils"></i>
                             </div>
                             <div class="atracao-info">
                                 <h4>Comidas Típicas</h4>
-                                <p>leite de amendoim,cachorro quente, pipoca e muito mais</p>
+                                <p>Barracas com pastel, canjica, pamonha e muito mais</p>
                             </div>
                         </div>
                         
@@ -165,13 +180,17 @@
                             </div>
                             <div class="atracao-info">
                                 <h4>Quadrilhas</h4>
-                                <p>Apresentações dos alunos</p>
+                                <p>Apresentações dos alunos e professores</p>
                             </div>
                         </div>
                         
                         <div class="atracao-card">
                             <div class="atracao-icon">
                                 <i class="fas fa-gamepad"></i>
+                            </div>
+                            <div class="atracao-info">
+                                <h4>Brincadeiras</h4>
+                                <p>Pescaria, correio elegante, tiro ao alvo e muito mais</p>
                             </div>
                         </div>
                     </div>
@@ -199,24 +218,6 @@
             &copy; 2023 Prova Surpresa - Todos os direitos reservados.
         </div>
     </footer>
-
-    <script>
-        function showPage(pageId) {
-            // Esconder todas as páginas
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            
-            // Mostrar a página selecionada
-            document.getElementById(pageId).classList.add('active');
-            
-            // Atualizar o link ativo na navegação
-            document.querySelectorAll('nav a').forEach(link => {
-                link.classList.remove('active');
-            });
-            
-            event.target.classList.add('active');
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
