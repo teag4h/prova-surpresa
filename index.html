@@ -1,17 +1,661 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>prova surpresa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Estilos gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1e5799, #207cca);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Estilos do cabeçalho */
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo i {
+            font-size: 2.5rem;
+            color: #1e5799;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            color: #207cca;
+        }
+        
+        /* Navegação */
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 8px 15px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        nav a:hover {
+            background-color: #e3f2fd;
+            color: #1e5799;
+        }
+        
+        nav a.active {
+            background-color: #1e5799;
+            color: white;
+        }
+        
+        /* Conteúdo principal */
+        main {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            margin-bottom: 30px;
+            min-height: 70vh;
+        }
+        
+        .page {
+            padding: 40px;
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Estilos da página do estudante */
+        .student-header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #1e5799;
+        }
+        
+        .student-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .student-header p {
+            font-size: 1.2rem;
+            color: #207cca;
+        }
+        
+        .student-profile {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 50px;
+            align-items: center;
+        }
+        
+        .student-photo {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .student-photo img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border: 5px solid #e3f2fd;
+        }
+        
+        .student-info {
+            flex: 2;
+        }
+        
+        .student-info h3 {
+            color: #1e5799;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            border-bottom: 2px solid #207cca;
+            padding-bottom: 10px;
+        }
+        
+        .student-info p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .skills-container {
+            margin-top: 30px;
+        }
+        
+        .skill {
+            margin-bottom: 15px;
+        }
+        
+        .skill-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #1e5799;
+        }
+        
+        .skill-bar {
+            height: 20px;
+            background-color: #e3f2fd;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .skill-level {
+            height: 100%;
+            background: linear-gradient(90deg, #1e5799, #207cca);
+            border-radius: 10px;
+            text-align: right;
+            padding-right: 10px;
+            color: white;
+            font-size: 0.8rem;
+            line-height: 20px;
+        }
+        
+        .projects {
+            margin-top: 50px;
+        }
+        
+        .projects h3 {
+            color: #1e5799;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            border-bottom: 2px solid #207cca;
+            padding-bottom: 10px;
+        }
+        
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .project-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .project-img {
+            height: 180px;
+            overflow: hidden;
+        }
+        
+        .project-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .project-card:hover .project-img img {
+            transform: scale(1.1);
+        }
+        
+        .project-info {
+            padding: 20px;
+        }
+        
+        .project-info h4 {
+            color: #1e5799;
+            margin-bottom: 10px;
+        }
+        
+        /* Estilos da página do arraial */
+        .arraial-header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #c62828;
+        }
+        
+        .arraial-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .arraial-header p {
+            font-size: 1.2rem;
+            color: #e53935;
+        }
+        
+        .event-info {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .event-details {
+            flex: 1;
+        }
+        
+        .event-details h3 {
+            color: #c62828;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            border-bottom: 2px solid #e53935;
+            padding-bottom: 10px;
+        }
+        
+        .event-details p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .info-item i {
+            color: #e53935;
+            font-size: 1.2rem;
+        }
+        
+        .event-photo {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .event-photo img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border: 5px solid #ffebee;
+        }
+        
+        .atracoes {
+            margin-top: 50px;
+        }
+        
+        .atracoes h3 {
+            color: #c62828;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            border-bottom: 2px solid #e53935;
+            padding-bottom: 10px;
+        }
+        
+        .atracoes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .atracao-card {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .atracao-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .atracao-icon {
+            background: #ffebee;
+            padding: 20px;
+            font-size: 3rem;
+            color: #c62828;
+        }
+        
+        .atracao-info {
+            padding: 20px;
+        }
+        
+        .atracao-info h4 {
+            color: #c62828;
+            margin-bottom: 10px;
+        }
+        
+        /* Rodapé */
+        footer {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px 20px 0 0;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+            color: #1e5799;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-5px);
+            color: #207cca;
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .student-profile, .event-info {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Nathan</h1>
-    <p>bom,sou apenas um esstudante do ensino médio </p>
-    <p> </p>
-    <img src="imagem.jpg" alt="Descrição da imagem" width="300">
-    <br>
-    <button>Clique em mim!</button>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-school"></i>
+                <h1>Escola Técnica São Paulo</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active" onclick="showPage('estudante')">Estudante</a></li>
+                    <li><a href="#" onclick="showPage('arraia')">Arraial</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="container">
+        <main>
+            <!-- Página do Estudante -->
+            <div id="estudante" class="page active">
+                <div class="student-header">
+                    <h2>Estudante de Informática</h2>
+                    <p>Conheça nosso talentoso aluno do curso técnico</p>
+                </div>
+                
+                <div class="student-profile">
+                    <div class="student-photo">
+                        <img src="https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Estudante de Informática">
+                    </div>
+                    <div class="student-info">
+                        <h3>Carlos Silva</h3>
+                        <p>Carlos é um estudante dedicado do curso técnico em Informática, apaixonado por tecnologia desde criança. Com apenas 18 anos, já demonstra habilidades impressionantes em diversas áreas da computação.</p>
+                        <p>Atualmente no 3º ano do ensino médio integrado ao técnico, Carlos participa ativamente de projetos escolares e competições de programação, onde já conquistou várias premiações.</p>
+                        
+                        <div class="skills-container">
+                            <div class="skill">
+                                <div class="skill-name">Desenvolvimento Web</div>
+                                <div class="skill-bar">
+                                    <div class="skill-level" style="width: 90%">90%</div>
+                                </div>
+                            </div>
+                            <div class="skill">
+                                <div class="skill-name">Programação em Python</div>
+                                <div class="skill-bar">
+                                    <div class="skill-level" style="width: 85%">85%</div>
+                                </div>
+                            </div>
+                            <div class="skill">
+                                <div class="skill-name">Banco de Dados</div>
+                                <div class="skill-bar">
+                                    <div class="skill-level" style="width: 80%">80%</div>
+                                </div>
+                            </div>
+                            <div class="skill">
+                                <div class="skill-name">Redes de Computadores</div>
+                                <div class="skill-bar">
+                                    <div class="skill-level" style="width: 75%">75%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="projects">
+                    <h3>Projetos Desenvolvidos</h3>
+                    <div class="project-grid">
+                        <div class="project-card">
+                            <div class="project-img">
+                                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Projeto 1">
+                            </div>
+                            <div class="project-info">
+                                <h4>Sistema de Biblioteca</h4>
+                                <p>Plataforma digital para gerenciamento de acervo e empréstimos da biblioteca escolar.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="project-card">
+                            <div class="project-img">
+                                <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Projeto 2">
+                            </div>
+                            <div class="project-info">
+                                <h4>App de Estudos</h4>
+                                <p>Aplicativo mobile para organização de estudos e gerenciamento de tempo.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="project-card">
+                            <div class="project-img">
+                                <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Projeto 3">
+                            </div>
+                            <div class="project-info">
+                                <h4>Portal Escolar</h4>
+                                <p>Website com informações acadêmicas, calendário escolar e comunicação.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Página do Arraial -->
+            <div id="arraia" class="page">
+                <div class="arraial-header">
+                    <h2>Arraial da Escola</h2>
+                    <p>Celebrando as tradições juninas com muita festa!</p>
+                </div>
+                
+                <div class="event-info">
+                    <div class="event-details">
+                        <h3>Festa Junina 2023</h3>
+                        <p>Nossa tradicional festa junina está de volta! Este ano teremos uma programação especial com muitas atrações, comidas típicas e atividades para toda a comunidade escolar.</p>
+                        
+                        <div class="info-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Data: 24 de Junho de 2023</span>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Horário: 14h às 22h</span>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Local: Quadra Poliesportiva da Escola</span>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i class="fas fa-ticket-alt"></i>
+                            <span>Entrada: 1kg de alimento não perecível</span>
+                        </div>
+                        
+                        <p>A festa contará com:</p>
+                        <ul>
+                            <li>Barracas de comidas típicas</li>
+                            <li>Apresentações de quadrilha</li>
+                            <li>Show de forró ao vivo</li>
+                            <li>Jogos e brincadeiras</li>
+                            <li>Arraial beneficente</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="event-photo">
+                        <img src="https://images.unsplash.com/photo-1591963466644-48d0e666c7e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Arraial Escolar">
+                    </div>
+                </div>
+                
+                <div class="atracoes">
+                    <h3>Principais Atrações</h3>
+                    <div class="atracoes-grid">
+                        <div class="atracao-card">
+                            <div class="atracao-icon">
+                                <i class="fas fa-music"></i>
+                            </div>
+                            <div class="atracao-info">
+                                <h4>Forró Pé de Serra</h4>
+                                <p>Show com a banda "Os Xotezeiros" a partir das 18h</p>
+                            </div>
+                        </div>
+                        
+                        <div class="atracao-card">
+                            <div class="atracao-icon">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <div class="atracao-info">
+                                <h4>Comidas Típicas</h4>
+                                <p>Barracas com pastel, canjica, pamonha e muito mais</p>
+                            </div>
+                        </div>
+                        
+                        <div class="atracao-card">
+                            <div class="atracao-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="atracao-info">
+                                <h4>Quadrilhas</h4>
+                                <p>Apresentações dos alunos e professores</p>
+                            </div>
+                        </div>
+                        
+                        <div class="atracao-card">
+                            <div class="atracao-icon">
+                                <i class="fas fa-gamepad"></i>
+                            </div>
+                            <div class="atracao-info">
+                                <h4>Brincadeiras</h4>
+                                <p>Pescaria, correio elegante, tiro ao alvo e muito mais</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="logo">
+                <i class="fas fa-school"></i>
+                <h3>Escola Técnica São Paulo</h3>
+            </div>
+            
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2023 Escola Técnica São Paulo. Todos os direitos reservados.
+        </div>
+    </footer>
+
+    <script>
+        function showPage(pageId) {
+            // Esconder todas as páginas
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Mostrar a página selecionada
+            document.getElementById(pageId).classList.add('active');
+            
+            // Atualizar o link ativo na navegação
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            event.target.classList.add('active');
+        }
+    </script>
 </body>
 </html>
-
